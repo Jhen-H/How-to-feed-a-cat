@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your report</title>
+    <link rel="icon" href="./img/icon.png">
+    <script src="./jquery.js"></script>
+    <link rel="stylesheet" href="./Index.css">
+</head>
+
+<body>
+    <div class="roombackground">
+        <ul style="list-style-type: none;" class="cost">
+            <li id="result">
+                <img src="./img/report.png"><br>
+                結算<br>報告
+            </li>
+            <li id="comeback">
+                <img src="./img/back.png"><br>
+                返回<br>遊戲
+            </li>
+        </ul>
+
+        <div class="catroom">
+            <img src="./img/happy.png" id="happyCat">
+        </div>
+
+        <div class="room">
+            <div class="funButton">
+                <div class="knowledgebtn" data-type="fur"><img src="./img/fur.png" id="fur" title=點擊獲得&#10;更多小知識>
+                <br><span class="btntext">貓咪的毛</span></div>
+                <div class="knowledgebtn" data-type="nail"><img src="./img/nail.png" id="nail" title=點擊獲得&#10;更多小知識>
+                <br><span class="btntext">貓咪剪指甲</span></div>
+                <div class="knowledgebtn" data-type="vomit"><img src="./img/vomit.png" id="vomit" title=點獲得更多&#10;小知識>                <br><span class="btntext">貓咪嘔吐</span></div>
+                <div class="knowledgebtn" data-type="pee"><img src="./img/pee.png" id="pee" title=點擊獲得&#10;更多小知識>
+                <br><span class="btntext">貓咪尿尿</span></div>
+            </div>
+        </div>
+
+        <div id="knowledge" class="knw" style="display:none;">
+            <div class="knwcontent">
+                <h2 id="knwTitle" style="color: #5a4b41;"></h2>
+                <img id="knwImg" src="" alt="知識圖片" style="width:100%; margin:10px 0;">
+                <p id="knwText"></p>
+                <button class="knwclosebtn" onclick="$('#knowledge').fadeOut()">close</button>
+            </div>
+        </div>
+
+
+        <div id="report" class="rep" style="display:none;">
+            <div class="repcontent">
+                <p id="repText"></p>
+                <button id="closebtn" onclick="$('#report').fadeOut()">✘</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- <script src="./Index.js"></script> -->
+    <script src="./report.js"></script>
+
+</body>
+
+</html>

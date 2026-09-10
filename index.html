@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to feed a cat</title>
+    <link rel="icon" href="./img/icon.png">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="./Index.css">
+</head>
+
+<body>
+    <div class="roombackground">
+        <ul style="list-style-type: none;" class="cost">
+            <li id="buyFood">
+                <img src="./img/foodbag.png"><br>
+                購買<br>飼料
+            </li>
+            <li id="buyLitter">
+                <img src="./img/catLitter.png"><br>
+                購買<br>貓砂
+            </li>
+            <li id="doctor">
+                <img src="./img/doctor.png"><br>
+                獸醫<br>檢查
+            </li>
+        </ul>
+
+        <div class="catroom">
+            <img src="./img/myCat.png" id="myCat" class="allCat">
+            <img src="./img/myCatRight.png" id="myCatRight" class="allCat">
+            <img src="./img/myCatLeft.png" id="myCatLeft" class="allCat">
+            <img src="./img/myCatIn.png" id="myCatIn" class="allCat">
+            <img src="./img/myCatUp.png" id="myCatUp" class="allCat">
+            <img src="./img/myCatEat.png" id="myCatEat" class="allCat">
+            <img src="./img/myCatPupu.png" id="myCatPupu" class="allCat">
+            <img src="./img/./playing.png" id="playing" class="allCat">
+            <img src="./img/./playing1.png" id="playing1" class="allCat">
+        </div>
+
+        <div class="room">
+            <div class="AllEnergyBar">
+                <div class="energybar">
+                    <span class="energytext">飽足感:</span>
+                    <div class="energy">
+                        <div id="fullbar" class="fill" style="background-color: rgb(249, 202, 144);"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="energybar">
+                    <span class="energytext">清潔度:</span>
+                    <div class="energy">
+                        <div id="cleanbar" class="fill" style="background-color: skyblue;"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="energybar">
+                    <span class="energytext">健康值:</span>
+                    <div class="energy">
+                        <div id="healthbar" class="fill" style="background-color: rgb(152, 206, 105);"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="energybar">
+                    <span class="energytext">快樂度:</span>
+                    <div class="energy">
+                        <div id="happybar" class="fill" style="background-color: #f5b0c9;"></div>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="totalmoney">
+                    花費: <span id="money">5000</span> 元
+                </div>
+            </div>
+
+
+            <div class="funButton">
+                <div><img src="./img/food.png" id="food" title=餵食&#10;飽足感+15&#10;健康值+5&#10;快樂度+5></div>
+                <div><img src="./img/water.png" id="water" title=換水&#10;清潔值+10&#10;健康值+5&#10;快樂度+5></div>
+                <div><img src="./img/clean.png" id="clean" title=鏟貓砂&#10;清潔值+3&#10;健康值+5></div>
+                <div><img src="./img/toy.png" id="toy" title=玩耍&#10;快樂度+15></div>
+            </div>
+        </div>
+
+        <div id="message" class="meg" style="display:none;">
+            <div class="megcontent">
+                <p id="megText"></p>
+                <button onclick="$('#message').fadeOut()">關閉</button>
+            </div>
+        </div>
+
+        <span id="showReportLink">
+            <a href="./report.html" id="reportLink">查看養貓成果報告</a>
+        </span>
+    </div>
+
+    <script src="./Index.js"></script>
+
+</body>
+
+</html>

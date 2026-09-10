@@ -1,0 +1,564 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.roombackground {
+    /* 忽略父元素固定位置 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* 螢幕的百分比 */
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./img/background.png');
+    background-size: cover;
+    background-position: center;
+    /* 類似圖層的排序數字大越前 */
+    z-index: 1;
+}
+
+.room {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    /* 讓介面以外的地方可以點擊後方 */
+    pointer-events: none;
+}
+
+.catroom {
+    /* 這個容器具有固定的比例，但會隨父層自動縮放 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1911px;
+    /* 寬高比 */
+    aspect-ratio: 1365 / 768;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.funButton {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* 貓咪 */
+.allCat {
+    position: absolute;
+    height: auto;
+    display: none;
+}
+
+#myCat {
+    position: absolute;
+    width: 11.0%;
+    bottom: 28%;
+    left: 51%;
+    transform: translateX(-50%);
+}
+
+#myCatLeft {
+    position: absolute;
+    width: 13.2%;
+    bottom: 19%;
+    left: 10%;
+}
+
+#myCatRight {
+    position: absolute;
+    width: 14%;
+    bottom: 40%;
+    left: 91%;
+    transform: translateX(-50%);
+}
+
+#myCatIn {
+    position: absolute;
+    width: 4.9%;
+    bottom: 53%;
+    left: 72.5%;
+    transform: translateX(-50%);
+}
+
+#myCatUp {
+    position: absolute;
+    width: 13.5%;
+    bottom: 45.5%;
+    left: 66.5%;
+    transform: translateX(-50%);
+}
+
+#myCatEat {
+    position: absolute;
+    width: 11.0%;
+    bottom: 23%;
+    left: 54.5%;
+    transform: translateX(-50%);
+}
+
+#myCatPupu {
+    position: absolute;
+    width: 12%;
+    bottom: 29%;
+    left: 28%;
+}
+
+#playing {
+    position: absolute;
+    width: 16.0%;
+    bottom: 27%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#playing1 {
+    position: absolute;
+    width: 15.0%;
+    /* bottom: 12%; */
+    bottom: -20%;
+    /* 初始位置：躲在螢幕下方 */
+    left: 68%;
+    transform: translateX(-50%);
+    transition: bottom 0.5s ease-out;
+}
+
+#happyCat {
+    position: absolute;
+    height: auto;
+    width: 12%;
+    bottom: 24.5%;
+    left: 43.5%;
+    transform: translateX(-50%);
+}
+
+/* 玩耍動畫 */
+.blur-wiggle {
+    /* 怎麼使用劇本 */
+    animation: fast-wiggle 0.1s ease-in-out infinite alternate;
+}
+
+/* 動畫劇本 怎麼動 */
+@keyframes fast-wiggle {
+    0% {
+        transform: translateX(-50%) rotate(-12deg) scale(1.05);
+    }
+
+    100% {
+        transform: translateX(-50%) rotate(12deg) scale(1.05);
+    }
+}
+
+/* 左側選單 */
+.cost {
+    position: fixed;
+    left: 0;
+    top: 30%;
+    transform: translateY(-50%) translateX(calc(-100% + 20px));
+
+    width: 12vw;
+    min-width: 60px;
+    max-width: 120px;
+
+    /* 半透明的顏色 */
+    background: rgba(255, 255, 255, 0.25);
+    /* 背後模糊 看起來像玻璃的質感 */
+    backdrop-filter: blur(5px);
+    border-radius: 0 15px 15px 0;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+
+    padding: 1.5vh 0.5vw;
+    /* 轉場 互動 漸進式揭露 */
+    transition: transform 0.3s ease;
+    z-index: 100;
+}
+
+.cost li {
+    display: flex;
+    /* 子元素縱向居中 */
+    align-items: center;
+    padding: 0.8vw 0.4vw;
+    margin: 0.5vh 0;
+
+    color: #5a4b41;
+    font-weight: bold;
+    /* 最小值,理想值,最大值 */
+    font-size: clamp(10px, 1vw, 12px);
+
+    border-radius: 8px;
+    /* 允許換行 */
+    white-space: normal;
+    line-height: 1.2;
+
+    opacity: 0.4;
+    pointer-events: none;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.cost img {
+    width: 3.5vw;
+    height: 3.5vw;
+    min-width: 20px;
+    min-height: 20px;
+    margin-right: 0.8vw;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.cost:hover {
+    transform: translateY(-50%) translateX(0);
+}
+
+.cost li:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+
+.cost li.enabled {
+    opacity: 1;
+    pointer-events: auto;
+    filter: grayscale(0%);
+    cursor: pointer;
+}
+
+/* 上方能量條 */
+.AllEnergyBar {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    display: flex;
+    z-index: 100;
+    /* 水平排列 */
+    flex-direction: row;
+    /* 垂直方向上置中對齊 會依據設定的排序方式有所不同 */
+    align-items: center;
+    gap: 20px;
+}
+
+.energybar {
+    display: flex;
+    align-items: center;
+}
+
+.energytext {
+    font-weight: bold;
+    color: #5a4b41;
+    margin-right: 10px;
+}
+
+.energy {
+    position: relative;
+    width: clamp(100px, 15vw, 180px);
+    height: clamp(20px, 3vh, 30px);
+    background-color: #fff;
+    border: 3px solid #5a4b41;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 90度方向左向右 1到19透明 20咖色線條出現 */
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 19%, #5a4b41 20%);
+    pointer-events: none;
+}
+
+.fill {
+    width: 80%;
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.totalmoney {
+    display: flex;
+    align-items: center;
+    height: clamp(20px, 3vh, 30px);
+    font-size: clamp(12px, 1.2vw, 18px);
+    padding: 0.1vw 3vw;
+    background: #fdf6e4;
+    border: 3px solid #5a4b41;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #5a4b41;
+}
+
+/* 晃動提示 */
+.shaking {
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.energybar.danger .energytext {
+    color: #ff4d4d !important;
+    font-weight: 900;
+}
+
+.energybar.danger .energy {
+    border-color: #ff4d4d !important;
+}
+
+.energybar.danger .fill {
+    background-color: #ff4d4d !important;
+}
+
+/* 提示框 */
+.meg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.megcontent {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    border: 3px solid #f9ca90;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.megcontent button {
+    margin-top: 15px;
+    padding: 8px 20px;
+    border-radius: 10px;
+    border: none;
+    background: #f9ca90;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 下方按鈕 */
+.funButton {
+    position: absolute;
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    gap: 2vw;
+    pointer-events: auto;
+    display: grid;
+    /* 4欄 平均分成4等份 */
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1vw;
+    max-width: 650px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.funButton img {
+    width: clamp(40px, 8vw, 80px);
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.funButton img:hover {
+    transform: scale(1.1);
+}
+
+.btntext {
+    font-family: "Microsoft JhengHei", sans-serif;
+    font-weight: bold;
+    margin-top: 5px;  
+    margin-left: 10px;
+    font-size: 14px;
+    color: #5a4b41;
+    width: 100%;
+}
+
+
+
+
+/* 結算畫面 */
+
+#showReportLink {
+    position: absolute;
+    /* height: 13px;  */
+    width: auto;
+    bottom: 5%;
+    right: 2%;
+    display: none;
+    color: #f9ca90;
+    padding: 5px 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+#reportLink {
+    font-family: "Microsoft JhengHei", sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    /* text-decoration: none;  刪除預設的藍色底線 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fdf6e4;
+}
+
+#showReportLink:hover {
+    background-color: #f9ca90;
+}
+
+
+/* 確保視窗內容可以容納定位元件 */
+.rep {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.repcontent {
+    background: #faf9f6;
+    width: 80%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 20px;
+    border: 3px solid #f9ca90;
+    position: relative;
+    text-align: center;
+}
+
+/* 右上角叉叉按鈕 */
+#closebtn {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 35px;
+    height: 35px;
+    background: #ff6b6b;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.knowledgebtn img {
+    width: clamp(40px, 8vw, 80px);
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+    height: 80px;      /* 強制設定高度 */
+    object-fit: contain; /* 確保圖片不變形 */
+}
+
+#knwImg {
+    max-width: 300px;
+    height: auto;
+    margin: 10px auto;
+    /* 上下邊距，讓它跟標題文字有區隔 */
+    border-radius: 10px;
+    display: block;
+}
+
+
+.knw {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* 視窗本體 */
+.knwcontent {
+    background: #faf9f6;
+    border: 3px solid #f9ca90;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 60vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    /* 內容超出時自動產生滾動條 */
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    /* 確保 padding 不會把寬度撐爆 */
+
+    text-align: center; /* 讓內容物（包括圖片）預設水平置中 */
+    display: flex;
+    flex-direction: column; /* 讓內容垂直堆疊 */
+    align-items: center;    /* 強制所有子元素（包括圖片）水平置中 */
+}
+
+/* 文字區域美化 */
+#knwText {
+    white-space: pre-line;
+    margin-bottom: 25px;
+    font-size: 16px;
+    color: #5a4b41;
+    line-height: 1.5;
+}
+
+/* 下方關閉按鈕風格 */
+.knwclosebtn {
+    background-color: #f9ca90;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.knwclosebtn:hover {
+    background-color: #f7b768;
+    transform: translateY(-2px);
+}
