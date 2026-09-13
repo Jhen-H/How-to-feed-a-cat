@@ -97,8 +97,8 @@ function lockGame(msg, reason) {
 function unlockGame() {
     gameStats.isLocked = false;
     gameStats.lockReason = null; // 確保原因被清空
-    $("#message").fadeOut(100, function () {
-        $("#megText").html(""); // 徹底清空視窗內容
+    $("#message").stop(true, true).fadeOut(100, function () {
+    $("#megText").html(""); // 徹底清空視窗內容
     });
 }
 
